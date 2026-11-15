@@ -35,6 +35,8 @@ Novera is maintained as a separate private application. This public repository d
 
 The technology stack describes the underlying Novera application. Individual code samples may use only a subset of these technologies.
 
+[Architecture and Technology Decisions](docs/architecture-and-decisions.md)
+
 ## Engineering Highlights
 
 ### Authentication and Authorization
