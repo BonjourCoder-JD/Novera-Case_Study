@@ -2,160 +2,113 @@
 
 **Full-Stack Application Engineering | TypeScript | Next.js | React | PostgreSQL | Security | Automated Testing**
 
-An engineering case study documenting the architecture, development decisions, security considerations, and AI-assisted implementation of Novera, a business management platform developed for Avenier Group LLC.
+Novera is a private, deployed business operations platform developed for **Avenier Group LLC**. This public repository is an engineering case study: it explains selected architectural decisions, security and testing practices, development challenges, and the role of AI assistance. It also contains a small, independently runnable **illustrative** TypeScript authorization example.
 
-This repository also contains standalone, runnable TypeScript code samples demonstrating software engineering concepts represented in the application.
+**The production application source code is private.** The public example is not a copy of Novera's production authorization code, and its tests do not verify the production system.
+
+## Start Here: Engineering Documentation
+
+| Document | What it covers |
+| --- | --- |
+| [Architecture and Technology Decisions](docs/architecture-and-decisions.md) | System structure, technology choices, and engineering tradeoffs |
+| [Security Engineering and Testing](docs/security-and-testing.md) | Access controls, database isolation, security practices, and evidence boundaries |
+| [Engineering Challenges and Lessons Learned](docs/engineering-challenges.md) | Real historical debugging incidents involving authorization, migrations, and browser tests |
+| [AI-Assisted Development: Roles, Process, and Evidence](docs/ai-assisted-development.md) | How AI-assisted implementation, developer-written code, code review, and guided debugging contributed to Novera |
 
 ## Project Overview
 
-Novera is a business management platform designed to support internal operations and client-facing workflows.
+Novera supports internal operations and client-facing workflows. Its functional areas include:
 
-The application includes functionality related to:
-
-- User authentication and role-based authorization
+- Authentication, roles, permissions, and restricted application access
 - Organization and client management
-- Project management and service workflows
-- Contracts, electronic signing, and document management
-- Invoicing, payments, and financial operations
+- Project management, milestones, and service workflows
+- Proposals, contracts, electronic signing, and document management
+- Invoicing, expenses, and financial workflows
 - Administrative workflows and operational automation
+- A separate, invitation-only client portal
 
-Novera is maintained as a separate private application. This public repository documents selected engineering concepts without exposing proprietary implementation details, credentials, or customer information.
+Novera is maintained as a separate private application to protect business logic, confidential client information, credentials, and operational configuration.
 
 ## Technology Stack
 
 | Area | Technologies |
-|---|---|
-| Frontend | React, Next.js, TypeScript |
+| --- | --- |
+| Frontend | Next.js, React, TypeScript |
 | Backend | Next.js server-side functionality, Node.js |
 | Database | PostgreSQL, Drizzle ORM |
-| Authentication | Application authentication and role-based authorization |
-| Testing | Vitest, Playwright |
+| Authentication and authorization | Better Auth, Microsoft Entra ID integration, application permissions, PostgreSQL row-level security |
+| Testing | Vitest, Playwright, database integration testing |
 | Infrastructure | Docker, Git, GitHub |
-| Development | AI-assisted engineering workflow |
+| Development | AI-assisted implementation, developer review, independent coding exercises, and guided debugging |
 
-The technology stack describes the underlying Novera application. Individual code samples may use only a subset of these technologies.
-
-[Architecture and Technology Decisions](docs/architecture-and-decisions.md)
+These technologies describe the **private Novera application**. The public code example uses only a subset of them.
 
 ## Engineering Highlights
 
-### Authentication and Authorization
+### Authorization and data isolation
 
-Novera includes authorization logic for distinguishing user roles, account status, organizational access, and protected application functionality.
+The private application uses layered authorization and database-level access controls. Its development history includes an expense-visibility bug involving SQL `NULL` semantics, investigated and corrected with regression coverage. See [Engineering Challenges](docs/engineering-challenges.md) for the documented incident.
 
-The companion authorization sample demonstrates:
+### Database engineering
 
-- Strongly typed roles and permissions
-- Active-account checks
-- Permission-based access decisions
-- Denial of unauthorized operations
-- Automated verification of access-control behavior
+PostgreSQL and Drizzle ORM support application data and schema changes. A historical clean-database migration failure revealed a PostgreSQL enum/transaction interaction, reinforcing the need to test migration sequences from an empty database.
 
-### Database Engineering
+### Testing and CI
 
-The application uses PostgreSQL and Drizzle ORM. Its test infrastructure includes separate database connection roles and integration tests involving database operations and access isolation.
+The private project documentation describes integration, browser, and accessibility testing. This public repository does **not** claim a current passing run of the entire private application test suite. The public example has its own separate verification results below.
 
-### Software Testing
+## Runnable Public Code Example
 
-The Novera repository contains automated test files covering authentication, authorization, database operations, auditing, business logic, and end-to-end application behavior.
+### TypeScript Role-Based Authorization
 
-This companion repository includes independently runnable tests. Test results are reported separately from those of the private Novera application.
+- **Implementation:** [`src/permissions.ts`](src/permissions.ts)
+- **Tests:** [`tests/permissions.test.ts`](tests/permissions.test.ts)
 
-## Runnable Code Samples
+The standalone example illustrates typed roles and permissions, active-account checks, and access decisions for authorized and unauthorized users. It is intentionally simplified and **is not extracted production code**.
 
-### 1. TypeScript Role-Based Authorization
+### Run locally
 
-**Location:** `src/permissions.ts`
-
-A standalone authorization implementation demonstrating how user roles, account status, and explicitly granted permissions determine access to protected operations.
-
-**Automated tests:** `tests/permissions.test.ts`
-
-The initial verification run passed all five tests, covering active owners, inactive owners, authorized staff, unauthorized staff, and client restrictions.
-
-This example is intentionally simplified and is not Novera's production authorization implementation.
-
-Additional API, database, and frontend examples are planned.
-
-## Running the Examples
-
-Requirements:
-
-- Node.js
-- npm
-
-Clone this repository and install dependencies:
+Requirements: Node.js and npm.
 
 ```bash
 npm ci
-```
-
-Run the automated tests:
-
-```bash
 npm test
-```
-
-Check TypeScript types:
-
-```bash
 npm run typecheck
 ```
 
-The repository's test examples do not require access to the private Novera application.
-
-## AI-Assisted Development
-
-Novera was developed using an AI-assisted engineering workflow.
-
-My role included defining business requirements, directing implementation priorities, evaluating application behavior, managing development changes, and working with AI tools to implement and refine functionality.
-
-AI assistance was used to accelerate coding and support development tasks. I do not represent AI-generated implementation as independently authored code.
-
-This case study is intended to demonstrate my understanding of the application's engineering concepts, development decisions, verification processes, and technical challenges.
-
-The accompanying public code samples are educational demonstrations and are identified separately from production Novera code.
-
-## Development History
-
-The private Novera repository contains a Git commit history documenting application development, feature changes, tests, and refinements.
-
-Selected engineering milestones will be documented in this public case study with explanations of their technical significance, without disclosing confidential source code.
+The example does not need the private Novera application or its database.
 
 ## Verification Status
 
-| Item | Status |
-|---|---|
-| Public authorization example | Implemented locally |
-| Authorization tests | 5 passed |
-| TypeScript type-check | Pending confirmation |
-| Additional code samples | Planned |
-| Original Novera integration suite | Not currently verified |
-| Public GitHub publication | Pending |
+| Item | Evidence / status |
+| --- | --- |
+| Public TypeScript authorization example | Implemented and included in this repository |
+| Public Vitest tests | **5 passed** in the recorded verification run |
+| Public TypeScript typecheck | **Passed** in the recorded verification run |
+| Engineering documents | Four documents published in the public repository |
+| Original private application integration / end-to-end suite | **Not independently reverified for this case study** |
+| Screenshots and feature walkthroughs | Planned; publish only after checking for confidential information |
+| Recorded demonstration | Planned; use synthetic or otherwise nonconfidential data |
 
-Verification results reflect the evidence available at the time of writing and will be updated as additional checks are completed.
+Results are historical checkpoints, not a claim that tests were rerun during this README update.
 
-## Development Approach
+## AI-Assisted Development and Personal Contributions
 
-This project emphasizes:
+Novera was built with substantial assistance from Claude and ChatGPT. AI tools helped produce implementation code, tests, technical suggestions, and debugging guidance. I defined business requirements and feature priorities, reviewed the code Claude provided for each module, and worked through bugs identified or presented during development with Claude's guidance. I was also assigned portions of modules to implement myself to practice programming and build familiarity with the codebase.
 
-- Secure-by-design application development
-- Clear separation of responsibilities
-- Automated testing and reproducible examples
-- Documented engineering decisions
-- Transparent AI-assisted development
-- Responsible handling of private application code
+Reviewing or approving AI-generated code is not the same as independently authoring it. The case study distinguishes those activities rather than presenting the whole application as independently coded. See the [full development disclosure](docs/ai-assisted-development.md).
+
+## Screenshots and Demonstrations
+
+Application screenshots, selected workflow walkthroughs, and recorded demonstrations will be added after review for private client information, credentials, and operational details. Until then, this repository's primary evidence consists of its engineering documentation and runnable public example.
 
 ## Project Context
 
-**Organization:** Avenier Group LLC
-
-**Application:** Novera
-
-**Repository purpose:** Software engineering portfolio and technical case study
-
-**Source-code policy:** The underlying application remains private. Public code examples are separately implemented demonstrations.
+- **Organization:** Avenier Group LLC
+- **Application:** Novera
+- **Repository purpose:** Public software engineering portfolio and technical case study
+- **Source-code policy:** Production application remains private; public examples are separately implemented illustrations
 
 ---
 
-*This case study is an evolving technical portfolio artifact. Features, testing results, and engineering claims are documented as they are verified.*
+*This case study is maintained as a transparent account of engineering decisions, practical development experience, and verification evidence. Claims are updated as supporting evidence is available.*
