@@ -15,6 +15,17 @@ Novera is a private, deployed business operations platform developed for **Aveni
 | [Engineering Challenges and Lessons Learned](docs/engineering-challenges.md) | Real historical debugging incidents involving authorization, migrations, and browser tests |
 | [AI-Assisted Development: Roles, Process, and Evidence](docs/ai-assisted-development.md) | How AI-assisted implementation, developer-written code, code review, and guided debugging contributed to Novera |
 
+### Application Demonstration
+
+[View the Novera Application Walkthrough](docs/application-walkthrough.md)
+
+Explore seven screenshots demonstrating the staff Command Center,
+project management, milestone and task tracking, and the client portal,
+including project and invoice views.
+
+Screenshots use fictional demonstration data. The underlying
+production application remains private.
+
 ## Project Overview
 
 Novera supports internal operations and client-facing workflows. Its functional areas include:
